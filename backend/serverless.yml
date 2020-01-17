@@ -1,0 +1,38 @@
+service: backend
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  getHomeInfo:
+    handler: handler.getHomeInfo
+    events:
+      - http:
+          path: home
+          method: get
+          cors: true
+
+  getPartners:
+    handler: handler.getPartners
+    events:
+      - http:
+          path: partners
+          method: get
+          cors: true
+
+  getProducts:
+    handler: handler.getProducts
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
+
+  getKnowMore:
+    handler: handler.getKnowMore
+    events:
+      - http:
+          path: knowmore
+          method: get
+          cors: true
