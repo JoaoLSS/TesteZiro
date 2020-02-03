@@ -1,6 +1,7 @@
 import React, { useState, useReducer, useCallback, useRef } from "react";
 import ReactDOM from "react-dom";
 import { Form, Button } from "react-bootstrap";
+import Axios from "axios";
 
 const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
 
@@ -11,16 +12,13 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
 
     const handleSubmit = useCallback((event) => {
         console.log({ requestData })
-        fetch('https://auth.nxcd.com.br/v1.0/login/', {
-            method: 'POST',
-            body: JSON.stringify(requestData),
+        Axios.post('https://auth.nxcd.com.br/v1.0/login/',requestData, {
             headers: {
                 contentType: 'application/x-www-form-urlencoded',
                 dataType: 'json'
             }
         })
-        .then((response) => response.json())
-        .then(setResponseData)
+        .then(({ data }) => setResponseData(data))
         .catch((error) => console.log({ error }))
         event.preventDefault();
     },[requestData])
