@@ -18,9 +18,9 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
                 dataType: 'json'
             }
         })
-        .then(({ text }) => text())
-        .then(setResponseData)
-        .catch(setResponseData)
+        .then(({ body }) => {
+        })
+        .catch((error) => console.log({ error }))
         event.preventDefault();
     })
 
