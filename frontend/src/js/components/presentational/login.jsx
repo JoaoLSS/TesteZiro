@@ -7,9 +7,10 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const handleChange = useCallback(() => setRequestData({ email: emailRef.current.value, password: passwordRef.current.value }));
+    const handleChange = useCallback(() => setRequestData({ email: emailRef.current.value, password: passwordRef.current.value }),[setRequestData]);
 
     const handleSubmit = useCallback((event) => {
+        console.log({ requestData })
         fetch('https://auth.nxcd.com.br/v1.0/login/', {
             method: 'POST',
             body: JSON.stringify(requestData),
@@ -18,11 +19,11 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
                 dataType: 'json'
             }
         })
-        .then(({ body }) => {
-        })
+        .then((response) => response.json())
+        .then(setResponseData)
         .catch((error) => console.log({ error }))
         event.preventDefault();
-    })
+    },[requestData])
 
     return (
         <Form style={{ padding: 20 }} onSubmit={handleSubmit}>
