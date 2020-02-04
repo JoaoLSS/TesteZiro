@@ -2,7 +2,7 @@ import React, { useState, useReducer, useCallback } from "react";
 import ReactDOM from "react-dom";
 import { Container, Col, Row, Button } from 'react-bootstrap';
 
-import { Login, UploadPhoto, FullOCR, CompRes, Biometria, BiometriaDatavalid } from '../presentational';
+import { Login, UploadPhoto, FullOCR, CompRes, Biometria, BiometriaDatavalid, Classificacao, BgCheck } from '../presentational';
 
 const MainContainer = () => {
 
@@ -15,7 +15,7 @@ const MainContainer = () => {
     return (
         <Container fluid={true} style={{ padding: 100 }}>
             <Row>
-            <Col>
+            <Col xs={7}>
                 {
                     token ?
                     [<Row style={{ justifyContent: 'space-evenly' }}>
@@ -26,13 +26,19 @@ const MainContainer = () => {
                             FullOCR
                         </Button>
                         <Button variant='primary' onClick={() => setPage('compRes')}>
-                            Comprovante Residencia
+                            Comp Residencia
                         </Button>
                         <Button variant='primary' onClick={() => setPage('bio')}>
                             Biometria
                         </Button>
                         <Button variant='primary' onClick={() => setPage('bioData')}>
-                            Biometria Datavalid
+                            Bio Datavalid
+                        </Button>
+                        <Button variant='primary' onClick={() => setPage('class')}>
+                            Classificaçao
+                        </Button>
+                        <Button variant='primary' onClick={() => setPage('bgCheck')}>
+                            BgCheck
                         </Button>
                     </Row>,
                     <Row>
@@ -44,6 +50,8 @@ const MainContainer = () => {
                                     case 'compRes': return <CompRes setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
                                     case 'bio': return <Biometria setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
                                     case 'bioData': return <BiometriaDatavalid setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
+                                    case 'class': return <Classificacao setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
+                                    case 'bgCheck': return <BgCheck setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
                                     default: return null
                                 }
                             })()
