@@ -9,10 +9,10 @@ const Biometria = ({ setRequestData, setResponseData, token, requestData }) => {
 
     const handleSubmit = useCallback((event) => {
         const data = new FormData();
-        data.append('doc', requestData.doc)
-        data.append('selfie', requestData.selfie)
+        data.append('img1', requestData.img1)
+        data.append('img2', requestData.img2)
 
-        Axios.post('https://id.nxcd.com.br/v1.0/bio/face-compare/', data, {
+        Axios.post('https://id.nxcd.com.br/v1.0/bio/new-face-compare/', data, {
             headers: {
                 'x-access-token': token,
             }
@@ -34,10 +34,10 @@ const Biometria = ({ setRequestData, setResponseData, token, requestData }) => {
 
         <Form style={{ padding: 20 }} onSubmit={handleSubmit}>
             <h3>BIOMETRIA</h3>
-            <h6>doc</h6>
-            <input type="file" className="form-control" style={{ padding: 20, margin: 20  }} onChange={(event) => fileHandler(event, 'doc')}/>
-            <h6>selfie</h6>
-            <input type="file" className="form-control" style={{ padding: 20, margin: 20  }} onChange={(event) => fileHandler(event, 'selfie')}/>
+            <h6>img1</h6>
+            <input type="file" className="form-control" style={{ padding: 20, margin: 20  }} onChange={(event) => fileHandler(event, 'img1')}/>
+            <h6>img2</h6>
+            <input type="file" className="form-control" style={{ padding: 20, margin: 20  }} onChange={(event) => fileHandler(event, 'img2')}/>
             <Button variant='primary' type='submit'>
                 Enviar
             </Button>
