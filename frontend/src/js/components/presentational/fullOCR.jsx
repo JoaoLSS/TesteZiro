@@ -5,9 +5,13 @@ import Axios from "axios";
 
 const FullOCR = ({ setRequestData, setResponseData, token, requestData }) => {
 
-    useEffect(() => setRequestData({}),[])
+    useEffect(() => {
+        setRequestData({})
+        setResponseData()
+    },[])
 
     const handleSubmit = useCallback((event) => {
+        setResponseData('carregando')
         const data = new FormData();
         data.append('file', requestData.file)
 
@@ -17,7 +21,7 @@ const FullOCR = ({ setRequestData, setResponseData, token, requestData }) => {
             }
         })
         .then((response) => setResponseData(response.data))
-        .catch((error) => console.log({ error }))
+        .catch(({ response }) => setResponseData(response.data))
 
         event.preventDefault()
     },[requestData])

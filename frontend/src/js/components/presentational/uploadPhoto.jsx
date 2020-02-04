@@ -7,9 +7,13 @@ const UploadPhoto = ({ setRequestData, setResponseData, token, requestData }) =>
 
     const cpfRef = useRef()
 
-    useEffect(() => setRequestData({}),[])
+    useEffect(() => {
+        setRequestData({})
+        setResponseData()
+    },[])
 
     const handleSubmit = useCallback((event) => {
+        setResponseData('carregando')
         const data = new FormData();
         data.append('file', requestData.file)
         data.append('cpf', cpfRef.current.value)
@@ -21,7 +25,7 @@ const UploadPhoto = ({ setRequestData, setResponseData, token, requestData }) =>
             }
         })
         .then((response) => setResponseData(response.data))
-        .catch((error) => console.log({ error }))
+        .catch(({ response }) => setResponseData(response.data))
 
         event.preventDefault()
     },[requestData])

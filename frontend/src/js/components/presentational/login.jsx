@@ -11,7 +11,7 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
     const handleChange = useCallback(() => setRequestData({ email: emailRef.current.value, password: passwordRef.current.value }),[setRequestData]);
 
     const handleSubmit = useCallback((event) => {
-        console.log({ requestData })
+        setResponseData('carregando')
         Axios.post('https://auth.nxcd.com.br/v1.0/login/',requestData, {
             headers: {
                 contentType: 'application/x-www-form-urlencoded',
@@ -22,7 +22,7 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
             setResponseData(data)
             if(data.token) setToken(data.token)
         })
-        .catch((error) => console.log({ error }))
+        .catch(({ response }) => setResponseData(response.data))
         event.preventDefault();
     },[requestData])
 

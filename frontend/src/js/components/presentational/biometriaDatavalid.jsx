@@ -7,9 +7,13 @@ const BiometriaDatavalid = ({ setRequestData, setResponseData, token, requestDat
 
     const cpfRef = useRef()
 
-    useEffect(() => setRequestData({}),[])
+    useEffect(() => {
+        setRequestData({})
+        setResponseData()
+    },[])
 
     const handleSubmit = useCallback((event) => {
+        setResponseData('carregando')
         const data = new FormData();
         data.append('img1', requestData.img1)
         data.append('img2', requestData.img2)
@@ -21,7 +25,7 @@ const BiometriaDatavalid = ({ setRequestData, setResponseData, token, requestDat
             }
         })
         .then((response) => setResponseData(response.data))
-        .catch((error) => console.log({ error }))
+        .catch(({ response }) => setResponseData(response.data))
 
         event.preventDefault()
     },[requestData])

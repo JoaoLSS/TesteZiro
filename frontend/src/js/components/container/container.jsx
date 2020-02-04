@@ -20,7 +20,7 @@ const MainContainer = () => {
                     token ?
                     [<Row style={{ justifyContent: 'space-evenly' }}>
                         <Button variant='primary' onClick={() => setPage('uploadPhoto')}>
-                            Upload foto
+                            4 Campos
                         </Button>
                         <Button variant='primary' onClick={() => setPage('fullOCR')}>
                             FullOCR
