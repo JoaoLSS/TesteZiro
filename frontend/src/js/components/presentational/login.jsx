@@ -18,7 +18,10 @@ const Login = ({ setRequestData, setResponseData, setToken, requestData }) => {
                 dataType: 'json'
             }
         })
-        .then(({ data }) => setResponseData(data))
+        .then(({ data }) => {
+            setResponseData(data)
+            if(data.token) setToken(data.token)
+        })
         .catch((error) => console.log({ error }))
         event.preventDefault();
     },[requestData])

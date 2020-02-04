@@ -2,7 +2,7 @@ import React, { useState, useReducer, useCallback } from "react";
 import ReactDOM from "react-dom";
 import { Container, Col, Row, Button } from 'react-bootstrap';
 
-import { Login, UploadPhoto } from '../presentational';
+import { Login, UploadPhoto, FullOCR, CompRes, Biometria, BiometriaDatavalid } from '../presentational';
 
 const MainContainer = () => {
 
@@ -31,12 +31,19 @@ const MainContainer = () => {
                         <Button variant='primary' onClick={() => setPage('bio')}>
                             Biometria
                         </Button>
+                        <Button variant='primary' onClick={() => setPage('bioData')}>
+                            Biometria Datavalid
+                        </Button>
                     </Row>,
                     <Row>
                         {
                             (() => {
                                 switch(page) {
-                                    case 'uploadPhoto': return <UploadPhoto setRequestData={setRequestData} requestData={requestData}/>
+                                    case 'uploadPhoto': return <UploadPhoto setRequestData={setRequestData} requestData={requestData} token={token} setResponseData={setResponseData}/>
+                                    case 'fullOCR': return <FullOCR setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
+                                    case 'compRes': return <CompRes setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
+                                    case 'bio': return <Biometria setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
+                                    case 'bioData': return <BiometriaDatavalid setRequestData={setRequestData} setResponseData={setResponseData} requestData={requestData} token={token}/>
                                     default: return null
                                 }
                             })()
@@ -48,15 +55,15 @@ const MainContainer = () => {
             </Col>
             <Col>
                 <Row>
-                    <h1>A enviar</h1>
+                    <h3>A enviar</h3>
                 </Row>
                 <div style={{ whiteSpace: 'pre' }}>
                     {JSON.stringify(requestData,null,4)}
                 </div>
                 <Row>
-                    <h1>Resposta</h1>
+                    <h3>Resposta</h3>
                 </Row>
-                <div style={{ whiteSpace: 'pre' }}>
+                <div style={{ whiteSpace: 'pre', width: 500 }}>
                     {JSON.stringify(responseData,null,4)}
                 </div>
             </Col>

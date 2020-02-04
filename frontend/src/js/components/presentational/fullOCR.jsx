@@ -3,19 +3,15 @@ import ReactDOM from "react-dom";
 import { Form, Button } from "react-bootstrap";
 import Axios from "axios";
 
-const UploadPhoto = ({ setRequestData, setResponseData, token, requestData }) => {
-
-    const cpfRef = useRef()
+const FullOCR = ({ setRequestData, setResponseData, token, requestData }) => {
 
     useEffect(() => setRequestData({}),[])
 
     const handleSubmit = useCallback((event) => {
         const data = new FormData();
         data.append('file', requestData.file)
-        data.append('cpf', cpfRef.current.value)
-        data.append('prepareForDatavalid', true)
 
-        Axios.post('https://id.nxcd.com.br/v1.0/id/single-file/', data, {
+        Axios.post('https://id.nxcd.com.br/v1.0/id/extract-all-single-file/', data, {
             headers: {
                 'x-access-token': token,
             }
@@ -40,9 +36,8 @@ const UploadPhoto = ({ setRequestData, setResponseData, token, requestData }) =>
     return (
 
         <Form style={{ padding: 20 }} onSubmit={handleSubmit}>
-            <h3>4 CAMPOS</h3>
+            <h3>FullOCR</h3>
             <input type="file" className="form-control" style={{ padding: 20, margin: 20  }} onChange={fileHandler}/>
-            <input type="text" style={{ margin: 20  }} placeholder="CPF" ref={cpfRef} onChange={cpfHandler}/>
             <Button variant='primary' type='submit'>
                 Enviar
             </Button>
@@ -50,4 +45,4 @@ const UploadPhoto = ({ setRequestData, setResponseData, token, requestData }) =>
     )
 }
 
-export default UploadPhoto;
+export default FullOCR;
